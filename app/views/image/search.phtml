@@ -1,0 +1,54 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("image/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("image/new", "Create ")); ?>
+        </td>
+    <tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Created</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $image) { ?>
+        <tr>
+            <td><?php echo $image->id ?></td>
+            <td><?php echo $image->title ?></td>
+            <td><?php echo $image->description ?></td>
+            <td><?php echo $image->location ?></td>
+            <td><?php echo $image->created_at ?></td>
+            <td><?php echo $this->tag->linkTo(array("image/edit/" . $image->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("image/delete/" . $image->id, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("image/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("image/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("image/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("image/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <tbody>
+</table>
